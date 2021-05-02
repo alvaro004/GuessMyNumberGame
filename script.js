@@ -75,3 +75,6 @@ document.querySelector('.again').addEventListener('click', function () {
     document.querySelector('.check').disabled = false;
   }
 });
+window.alert(
+  `If you're in a phone, for a better experience you should activate the desktop mode`
+);
