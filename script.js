@@ -1,17 +1,22 @@
 'use strict';
 // this function return a random number
 const randomNumber = function () {
-  return Number((Math.random() * 20).toFixed(0));
+  return Number(Math.trunc(Math.random() * 20) + 1);
 };
 //this function return the score less one
 const reduceScore = function (score) {
   return (score -= 1);
 };
+
+const displayMessage = function (message) {
+  return (document.querySelector('.message').textContent = message);
+};
 // this function verifies if your lose and then change some properties
 const checkYourLose = function (score) {
   if (score === 0) {
     document.querySelector('body').style.backgroundColor = 'red';
-    document.querySelector('.message').textContent = `You loose the game! 😔`;
+    displayMessage(`You loose the game! 😔`);
+    // document.querySelector('.message').textContent = `You loose the game! 😔`;
     document.querySelector('.guess').disabled = true;
     document.querySelector('.check').disabled = true;
   }
@@ -40,16 +45,15 @@ document.querySelector('.check').addEventListener('click', function () {
 
   //if the user submit a wrong answer
   if (!guess) {
-    document.querySelector('.message').textContent = `there's not a value`;
+    displayMessage(`there's not a value`);
   } //if the user introduce a high or low number
   else if (guess !== secretNumber) {
-    document.querySelector('.message').textContent =
-      guess > secretNumber ? `Too High` : `Too Low`;
+    displayMessage(guess > secretNumber ? `Too High` : `Too Low`);
     score = reduceScore(score);
     document.querySelector('.score').textContent = score;
     checkYourLose(score);
   } else if (guess === secretNumber) {
-    document.querySelector('.message').textContent = `Yeah, Victory! 🎉`;
+    displayMessage(`Yeah, Victory! 🎉`);
     score = reduceScore(score);
     compairScore(score);
     document.querySelector('.score').textContent = score;
@@ -66,7 +70,7 @@ document.querySelector('.again').addEventListener('click', function () {
     compairScore(score);
     score = 20;
     document.querySelector('.score').textContent = score;
-    document.querySelector('.message').textContent = `Start guessing...`;
+    displayMessage(`Start guessing...`);
     secretNumber = randomNumber();
     document.querySelector('.number').textContent = `?`;
     document.querySelector('body').style.backgroundColor = '#6b6a6a';
